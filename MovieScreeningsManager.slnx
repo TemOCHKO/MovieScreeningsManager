@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="MovieScreeningsManager/MovieScreeningsManager.csproj" />
+  <Project Path="MovieScreeningsManager.Common/MovieScreeningsManager.Common.csproj" />
+  <Project Path="MovieScreeningsManager/MovieScreeningsManager.DBModels.csproj" />
 </Solution>
