@@ -5,7 +5,6 @@ namespace MovieScreeningsManager.DBModels
 
     public class CinemaHallDBModel
     {
-        public static int InstanceCount { get; private set; } = 0;
 
         public Guid Id { get; }
 
@@ -19,6 +18,17 @@ namespace MovieScreeningsManager.DBModels
         public TimeSpan TotalScreeningTime
         {
             get; set;
+        }
+
+        private CinemaHallDBModel() { }
+
+        public CinemaHallDBModel(string name, int capacity, CinemaHallType type, List<ScreeningDBModel> screenings)
+            {
+                Id = Guid.NewGuid();
+                Name = name;
+                Capacity = capacity;
+                Type = type;
+                Screenings = screenings;
         }
     }
 }
