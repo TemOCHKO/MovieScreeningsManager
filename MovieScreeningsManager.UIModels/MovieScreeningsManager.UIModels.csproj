@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>MovieScreeningsManager.UIModels</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieScreeningsManager.Common\MovieScreeningsManager.Common.csproj" />
+    <ProjectReference Include="..\MovieScreeningsManager\MovieScreeningsManager.DBModels.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -11,7 +11,6 @@ namespace MovieScreeningsManager.DBModels
         public int YearOfRelease { get; set; }
         public DateTime LaunchTime { get; set; }
         public int Duration { get; set; }
-        public DateTime EndTime { get; set; }
 
         private ScreeningDBModel() { }
         public ScreeningDBModel(string name, FilmGenre genre, int yearOfRelease, DateTime launchTime, int duration, Guid cinemaHallId)
