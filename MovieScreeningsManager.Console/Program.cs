@@ -8,7 +8,7 @@ namespace MovieScreeningsManagerConsole
         enum AppState
         {
             Default = 0,
-            DepartmentDetails = 1,
+            CinemaHallDetails = 1,
             End = 2,
             Exit = 100,
         }
@@ -26,8 +26,8 @@ namespace MovieScreeningsManagerConsole
             {
                 switch (_appState)
                 {
-                    case AppState.DepartmentDetails:
-                        DepartmentDetailsState(command);
+                    case AppState.CinemaHallDetails:
+                        CinemaHallDetailsState(command);
                         break;
                     case AppState.Default:
                         DefaultState();
@@ -56,7 +56,7 @@ namespace MovieScreeningsManagerConsole
                     switch (_appState)
                     {
                         case AppState.Default:
-                            _appState = AppState.DepartmentDetails;
+                            _appState = AppState.CinemaHallDetails;
                             break;
                         case AppState.End:
                             System.Console.WriteLine("Unknown command. Please try again.");
@@ -93,14 +93,14 @@ namespace MovieScreeningsManagerConsole
             }
         }
 
-        private static void DepartmentDetailsState(string? departmentName)
+        private static void CinemaHallDetailsState(string? cinemaHallName)
         {
-            departmentName = departmentName?.Trim();
-            departmentName = departmentName?.ToLower();
+            cinemaHallName = cinemaHallName?.Trim();
+            cinemaHallName = cinemaHallName?.ToLower();
             bool cinemaHallExists = false;
             foreach (var cinemaHall in _cinemaHalls)
             {
-                if (cinemaHall.Name.ToLower() == departmentName)
+                if (cinemaHall.Name.ToLower() == cinemaHallName)
                 {
                     cinemaHallExists = true;
                     cinemaHall.LoadScreenings(_storageService);

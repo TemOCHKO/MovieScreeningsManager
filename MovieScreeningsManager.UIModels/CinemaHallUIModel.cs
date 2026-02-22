@@ -6,8 +6,6 @@ namespace MovieScreeningsManager.UIModels
 {
     public class CinemaHallUIModel
     {
-
-        // 
         private CinemaHallDBModel _dbModel;
         private Guid? _id;
         private string _name;
@@ -17,9 +15,9 @@ namespace MovieScreeningsManager.UIModels
         private List<ScreeningUIModel> _screenings;
 
         // Properties to expose the fields of the UI model.
+
         // The ID is read-only,
         // and it should not be changed after creation.
-
         public Guid? Id { get => _dbModel.Id; }
         public string Name 
         {
@@ -71,7 +69,6 @@ namespace MovieScreeningsManager.UIModels
             _capacity = dbModel.Capacity;
             _type = dbModel.Type;
             calculateTotalScreeningsTime();
-            //TotalScreeningsTime = new TimeSpan(1, 0, 0);
         }
 
 
@@ -88,6 +85,11 @@ namespace MovieScreeningsManager.UIModels
             _totalScreeningsTime = totalTime;
         }
 
+        /// <summary>
+        /// saves the changes made to the UI model back to the underlying DB model.
+        /// if the db model does not exist, 
+        /// it creates a new one and assigns it UI model attributes
+        /// </summary>
         public void SaveChangesToDBModel()
         {
             if (_dbModel == null)
@@ -103,6 +105,11 @@ namespace MovieScreeningsManager.UIModels
             }
         }
 
+        /// <summary>
+        /// Loads the screenings associated with this cinema hall 
+        /// from the storage service and populates the Screenings collection.
+        /// </summary>
+        /// <param name="screeningDBModels"></param>
         public void LoadScreenings(StorageService screeningDBModels)
         {
             if (Id == null || _screenings.Count > 0) return;
