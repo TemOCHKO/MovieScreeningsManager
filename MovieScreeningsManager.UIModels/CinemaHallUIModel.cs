@@ -6,12 +6,19 @@ namespace MovieScreeningsManager.UIModels
 {
     public class CinemaHallUIModel
     {
+
+        // 
         private CinemaHallDBModel _dbModel;
         private Guid? _id;
         private string _name;
         private int _capacity;
         private CinemaHallType _type;
         private List<ScreeningUIModel> _screenings;
+
+
+        // Properties to expose the fields of the UI model.
+        // The ID is read-only,
+        // and it should not be changed after creation.
 
         public Guid? Id { get => _dbModel.Id; }
         public string Name 
@@ -34,14 +41,22 @@ namespace MovieScreeningsManager.UIModels
             get => _screenings; 
         }
 
-        public TimeSpan TotalScreeningsTime { get; private set; }
+        /// <summary>
+        /// Gets the duration of all screenings in the cinema hall.
+        /// </summary>
+        /// <remarks>This property is read-only and is automatically updated to reflect the total time of
+        /// all screenings..</remarks>
+        public TimeSpan TotalScreeningsTime { get => calculateTotalScreeningsTime(); private set; }
 
+
+        // A constructor for creating a new cinema hall without an existing DB model
         public CinemaHallUIModel()
         {
             _screenings = new List<ScreeningUIModel>();
-            calculateTotalScreeningsTime();
+            TotalScreeningsTime = calculateTotalScreeningsTime();
         }
 
+        // A constructor for creating a CinemaHallUIModel based on an existing CinemaHallDBModel
         public CinemaHallUIModel(CinemaHallDBModel dbModel) : this()
         {
             _dbModel = dbModel;
@@ -51,14 +66,18 @@ namespace MovieScreeningsManager.UIModels
             _type = dbModel.Type;
         }
 
-        private void calculateTotalScreeningsTime()
+
+        /// <summary>
+        /// Calculates the total duration of all screenings in the schedule.
+        /// </summary>
+        private TimeSpan calculateTotalScreeningsTime()
         {
             TimeSpan totalTime = TimeSpan.Zero;
             foreach (var screening in _screenings)
             {
                 totalTime = totalTime.Add(TimeSpan.FromMinutes(screening.Duration));
             }
-            TotalScreeningsTime = totalTime;
+            return totalTime;
         }
 
         public void SaveChangesToDBModel()
