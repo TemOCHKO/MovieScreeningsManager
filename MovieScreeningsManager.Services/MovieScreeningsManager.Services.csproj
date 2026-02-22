@@ -4,12 +4,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>MovieScreeningsManager.UIModels</RootNamespace>
+    <RootNamespace>MovieScreeningsManager.Services</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MovieScreeningsManager.Common\MovieScreeningsManager.Common.csproj" />
-    <ProjectReference Include="..\MovieScreeningsManager.Services\MovieScreeningsManager.Services.csproj" />
     <ProjectReference Include="..\MovieScreeningsManager\MovieScreeningsManager.DBModels.csproj" />
   </ItemGroup>
 

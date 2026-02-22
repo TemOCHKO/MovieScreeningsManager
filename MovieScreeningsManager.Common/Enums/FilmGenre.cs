@@ -19,6 +19,7 @@ namespace MovieScreeningsManager.Common.Enums
         Mystery,
         Romance,
         Animation,
-        Documentary
+        Documentary,
+        Crime, 
     }
 }
