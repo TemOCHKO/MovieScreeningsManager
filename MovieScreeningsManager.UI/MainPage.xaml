@@ -1,0 +1,63 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MovieScreeningsManager.UI.ViewModel"
+             xmlns:model="clr-namespace:MovieScreeningsManager.UIModels;assembly=MovieScreeningsManager.UIModels"
+             x:DataType="viewmodel:CinemaHallViewModel"
+             x:Class="MovieScreeningsManager.UI.MainPage"
+             Title= "{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid ColumnDefinitions="*, *"
+          ColumnSpacing="5"
+          RowDefinitions="*, Auto"
+          >
+
+        <CollectionView 
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding CinemaHalls}"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:CinemaHallUIModel">
+                    <Grid Padding="10">
+                        <Frame HeightRequest="125"
+                               Padding="0">
+                            
+                            <Grid Padding="0"
+                                  ColumnDefinitions="125, *">
+                                <Image Aspect="AspectFill"
+                                   Source="dotnet_bot.png"
+                                   WidthRequest="125"
+                                   HeightRequest="125"/>
+
+                                <VerticalStackLayout Grid.Column="1"
+                                         Padding="10"
+                                         VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding Capacity}"/>
+                                </VerticalStackLayout>
+
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+
+        <Button Text="Get Cinema Halls"
+                Command="{Binding GetCinemasCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                Margin="8"/>
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"/>
+    </Grid>
+
+</ContentPage>

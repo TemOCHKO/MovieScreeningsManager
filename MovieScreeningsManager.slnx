@@ -2,6 +2,7 @@
   <Project Path="MovieScreeningsManager.Common/MovieScreeningsManager.Common.csproj" />
   <Project Path="MovieScreeningsManager.Console/MovieScreeningsManagerConsole.csproj" Id="1c20bbc6-94ce-449c-8e33-5ab914be7fa9" />
   <Project Path="MovieScreeningsManager.Services/MovieScreeningsManager.Services.csproj" />
+  <Project Path="MovieScreeningsManager.UI/MovieScreeningsManager.UI.csproj" Id="3fddfafd-5a57-427f-a914-23bd81aa60e3" />
   <Project Path="MovieScreeningsManager.UIModels/MovieScreeningsManager.UIModels.csproj" />
   <Project Path="MovieScreeningsManager/MovieScreeningsManager.DBModels.csproj" />
 </Solution>
