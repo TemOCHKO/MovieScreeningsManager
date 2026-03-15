@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MovieScreeningsManager.UIModels;assembly=MovieScreeningsManager.UIModels"
+             xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
+             x:Class="MovieScreeningsManager.UI.View.CinemaHallDetailsPage"
+             x:DataType="models:CinemaHallUIModel"
+             Title="Cinema Hall Details">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <tools:EnumToDisplayNameConverter x:Key="EnumToDisplayName"></tools:EnumToDisplayNameConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, *">
+
+        <VerticalStackLayout>
+            <Label
+                Style="{StaticResource SubHeadline}"
+                Text="{Binding Name}"/>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Capacity: "/>
+                <Label Text="{Binding Capacity}"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="1"
+            ItemsSource="{Binding Screenings}"
+            SelectionMode="Single"
+            SelectionChanged="ScreeningSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="models:ScreeningUIModel">
+                    <Border
+                        Stroke="DimGrey"
+                        Padding="2"
+                        Margin="10, 10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}"/>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Duration (In minutes): "/>
+                                <Label Text="{Binding Duration}"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Launch Time: "/>
+                                <Label Text="{Binding LaunchTime}"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Genre: "/>
+                                <Label Text="{Binding Genre, Converter={StaticResource EnumToDisplayName}}"/>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </Grid>
+</ContentPage>

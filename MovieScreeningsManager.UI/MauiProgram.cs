@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using MovieScreeningsManager.UI.View;
+
 
 namespace MovieScreeningsManager.UI
 {
@@ -20,8 +22,8 @@ namespace MovieScreeningsManager.UI
 
 #endif
             builder.Services.AddSingleton<Services.StorageService>();
-            builder.Services.AddSingleton<ViewModel.CinemaHallViewModel>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<CinemaHallsPage>();
 
             return builder.Build();
         }

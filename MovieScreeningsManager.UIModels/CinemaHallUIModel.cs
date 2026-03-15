@@ -1,6 +1,7 @@
 ﻿using MovieScreeningsManager.Common.Enums;
 using MovieScreeningsManager.DBModels;
 using MovieScreeningsManager.Services;
+using System.Collections.ObjectModel;
 
 namespace MovieScreeningsManager.UIModels
 {
@@ -12,7 +13,7 @@ namespace MovieScreeningsManager.UIModels
         private int _capacity;
         private CinemaHallType _type;
         private TimeSpan? _totalScreeningsTime;
-        private List<ScreeningUIModel> _screenings;
+        private ObservableCollection<ScreeningUIModel> _screenings;
 
         // Properties to expose the fields of the UI model.
 
@@ -57,7 +58,7 @@ namespace MovieScreeningsManager.UIModels
 
         public CinemaHallUIModel()
         {
-            _screenings = new List<ScreeningUIModel>();
+            _screenings = new ObservableCollection<ScreeningUIModel>();
         }
 
         // A constructor for creating a CinemaHallUIModel based on an existing CinemaHallDBModel

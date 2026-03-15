@@ -75,4 +75,22 @@
 	  <ProjectReference Include="..\MovieScreeningsManager.UIModels\MovieScreeningsManager.UIModels.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="View\CinemaHallsPage.xaml.cs">
+	    <DependentUpon>CinemaHallsPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\CinemaHallDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\CinemaHallsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ScreeningDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
