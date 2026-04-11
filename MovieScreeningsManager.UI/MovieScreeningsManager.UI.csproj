@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -66,13 +66,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\MovieScreeningsManager.Repositories\MovieScreeningsManager.Repositories.csproj" />
 	  <ProjectReference Include="..\MovieScreeningsManager.Services\MovieScreeningsManager.Services.csproj" />
-	  <ProjectReference Include="..\MovieScreeningsManager.UIModels\MovieScreeningsManager.UIModels.csproj" />
+	  <ProjectReference Include="..\MovieScreeningsManager.Storage\MovieScreeningsManager.Storage.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

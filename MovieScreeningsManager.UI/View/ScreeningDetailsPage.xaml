@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:MovieScreeningsManager.UIModels;assembly=MovieScreeningsManager.UIModels"
+             xmlns:pages="clr-namespace:MovieScreeningsManager.UI.View"
+             xmlns:models="clr-namespace:MovieScreeningsManager.DTOModels.Screenings;assembly=MovieScreeningsManager.DTOModels"
+             xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
              xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
              x:Class="MovieScreeningsManager.UI.View.ScreeningDetailsPage"
-             x:DataType="models:ScreeningUIModel"
+             x:DataType="vm:ScreeningDetailsViewModel"
              Title="Screening Details">
     <ContentPage.Resources>
         <ResourceDictionary>

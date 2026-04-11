@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Main app theme must inherit from a MaterialComponents theme -->
+  <style name="Maui.MainTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Window background shown during cold start (splash) -->
+    <item name="android:windowBackground">@color/maui_splash_background</item>
+    <!-- Transparent status bar used by default in MAUI templates -->
+    <item name="android:statusBarColor">@android:color/transparent</item>
+
+    <!-- Material color attributes (ensure values exist in colors.xml) -->
+    <item name="colorPrimary">@color/maui_primary</item>
+    <item name="colorPrimaryVariant">@color/maui_primary_dark</item>
+    <item name="colorSecondary">@color/maui_accent</item>
+  </style>
+
+  <!-- Splash theme that inherits the Material-based main theme -->
+  <style name="Maui.SplashTheme" parent="Maui.MainTheme">
+    <item name="android:windowBackground">@drawable/splash</item>
+  </style>
+</resources>

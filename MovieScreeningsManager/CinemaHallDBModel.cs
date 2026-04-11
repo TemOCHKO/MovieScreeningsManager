@@ -11,15 +11,18 @@ namespace MovieScreeningsManager.DBModels
         public string Name { get; set; }
         public int Capacity { get; set; }
         public CinemaHallType Type { get; set; }
-
-        private CinemaHallDBModel() { }
-
-        public CinemaHallDBModel(string name, int capacity, CinemaHallType type)
-            {
-                Id = Guid.NewGuid();
-                Name = name;
-                Capacity = capacity;
-                Type = type;
+        public int RowCount { get; set; }
+        public CinemaHallDBModel(string name, int capacity, CinemaHallType type, int rowCount) : this(Guid.NewGuid(), name, capacity, type, rowCount)
+        {
+            
+        }
+        public CinemaHallDBModel(Guid id, string name, int capacity, CinemaHallType type, int rowCount)
+        {
+            Id = id;
+            Name = name;
+            Capacity = capacity;
+            Type = type;
+            RowCount = rowCount;
         }
     }
 }

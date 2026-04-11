@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace MovieScreeningsManager.UIModels
 {
+    [Obsolete("This class was created for learning and testing purposes. It is no longer needed and will be removed in the future")]
     public class CinemaHallUIModel
     {
         private CinemaHallDBModel _dbModel;
@@ -95,7 +96,7 @@ namespace MovieScreeningsManager.UIModels
         {
             if (_dbModel == null)
             {
-                _dbModel = new CinemaHallDBModel(_name, _capacity, _type);
+                _dbModel = new CinemaHallDBModel(_name, _capacity, _type, 17);
                 _id = _dbModel.Id;
             }
             else

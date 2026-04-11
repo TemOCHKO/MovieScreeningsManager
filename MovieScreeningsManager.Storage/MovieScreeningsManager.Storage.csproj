@@ -4,12 +4,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>MovieScreeningsManager.Services</RootNamespace>
+    <RootNamespace>MovieScreeningsManager.Storage</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MovieScreeningsManager.DTOModels\MovieScreeningsManager.DTOModels.csproj" />
-    <ProjectReference Include="..\MovieScreeningsManager.Repositories\MovieScreeningsManager.Repositories.csproj" />
     <ProjectReference Include="..\MovieScreeningsManager\MovieScreeningsManager.DBModels.csproj" />
   </ItemGroup>
 

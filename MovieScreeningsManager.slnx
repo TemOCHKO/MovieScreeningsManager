@@ -1,8 +1,11 @@
 <Solution>
   <Project Path="MovieScreeningsManager.Common/MovieScreeningsManager.Common.csproj" />
-  <Project Path="MovieScreeningsManager.Console/MovieScreeningsManagerConsole.csproj" Id="1c20bbc6-94ce-449c-8e33-5ab914be7fa9" />
+  <Project Path="MovieScreeningsManager.DTOModels/MovieScreeningsManager.DTOModels.csproj" Id="de72d11f-8f66-48f0-b3b7-0ffd6900d435" />
+  <Project Path="MovieScreeningsManager.Repositories/MovieScreeningsManager.Repositories.csproj" Id="025a6483-4c17-4a24-b9b7-fb9555c3ee8f" />
   <Project Path="MovieScreeningsManager.Services/MovieScreeningsManager.Services.csproj" />
-  <Project Path="MovieScreeningsManager.UI/MovieScreeningsManager.UI.csproj" Id="3fddfafd-5a57-427f-a914-23bd81aa60e3" />
-  <Project Path="MovieScreeningsManager.UIModels/MovieScreeningsManager.UIModels.csproj" />
+  <Project Path="MovieScreeningsManager.Storage/MovieScreeningsManager.Storage.csproj" Id="77b519e4-9744-4faf-9ac2-e2d05033fc78" />
+  <Project Path="MovieScreeningsManager.UI/MovieScreeningsManager.UI.csproj" Id="3fddfafd-5a57-427f-a914-23bd81aa60e3">
+    <Deploy Solution="Debug|*" />
+  </Project>
   <Project Path="MovieScreeningsManager/MovieScreeningsManager.DBModels.csproj" />
 </Solution>

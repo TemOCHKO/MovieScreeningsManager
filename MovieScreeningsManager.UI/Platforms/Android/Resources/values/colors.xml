@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#512BD4</color>
-    <color name="colorPrimaryDark">#2B0B98</color>
-    <color name="colorAccent">#2B0B98</color>
+    <!-- Color resources used by the Android theme -->
+    <color name="maui_splash_background">#FFFFFF</color>
+    <color name="maui_primary">#6200EE</color>
+    <color name="maui_primary_dark">#3700B3</color>
+    <color name="maui_accent">#03DAC5</color>
+    <color name="maui_secondary">#018786</color>
 </resources>

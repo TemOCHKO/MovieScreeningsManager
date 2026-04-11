@@ -1,6 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using Microsoft.Extensions.Logging;
+using MovieScreeningsManager.Repositories;
+using MovieScreeningsManager.Services;
+using MovieScreeningsManager.Storage;
 using MovieScreeningsManager.UI.View;
-
+using MovieScreeningsManager.UI.ViewModels;
 
 namespace MovieScreeningsManager.UI
 {
@@ -18,14 +22,24 @@ namespace MovieScreeningsManager.UI
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 
 #endif
-            builder.Services.AddSingleton<Services.StorageService>();
-            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<IStorageContext, InMemoryStorageContext>();
+            builder.Services.AddSingleton<ICinemaHallRepository, CinemaHallRepository>();
+            builder.Services.AddSingleton<IMovieScreeningsRepository, MovieScreeningsRepository>();
+
+            builder.Services.AddSingleton<ICinemaHallService, CinemaHallService>();
+            builder.Services.AddSingleton<IScreeningService, ScreeningService>();
             builder.Services.AddTransient<CinemaHallsPage>();
+
+            builder.Services.AddTransient<CinemaHallViewModel>();
+            builder.Services.AddTransient<CinemaHallDetailsViewModel>();
+            builder.Services.AddTransient<ScreeningDetailsViewModel>();
 
             return builder.Build();
         }
     }
+
 }
+

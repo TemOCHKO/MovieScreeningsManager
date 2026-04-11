@@ -1,4 +1,5 @@
 ﻿using MovieScreeningsManager.Common.Enums;
+using System.Xml.Linq;
 
 namespace MovieScreeningsManager.DBModels
 {
@@ -12,16 +13,19 @@ namespace MovieScreeningsManager.DBModels
         public DateTime LaunchTime { get; set; }
         public int Duration { get; set; }
 
-        private ScreeningDBModel() { }
-        public ScreeningDBModel(string name, FilmGenre genre, int yearOfRelease, DateTime launchTime, int duration, Guid cinemaHallId)
+        public ScreeningDBModel(Guid id, string name, FilmGenre genre, int yearOfRelease, DateTime launchTime, int duration, Guid cinemaHallId) 
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Name = name;
             Genre = genre;
             YearOfRelease = yearOfRelease;
             LaunchTime = launchTime;
             Duration = duration;
             CinemaHallId = cinemaHallId;
+        }
+        public ScreeningDBModel(string name, FilmGenre genre, int yearOfRelease, DateTime launchTime, int duration, Guid cinemaHallId) : this(Guid.NewGuid(), name, genre, yearOfRelease, launchTime, duration, cinemaHallId)
+        {
+            
         }
     }
 }

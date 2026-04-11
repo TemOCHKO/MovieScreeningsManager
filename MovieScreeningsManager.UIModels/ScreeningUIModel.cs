@@ -6,6 +6,7 @@ using System.Text;
 
 namespace MovieScreeningsManager.UIModels
 {
+    [Obsolete("This class was created for learning and testing purposes. It is no longer needed and will be removed in the future")]
     public class ScreeningUIModel
     {
 

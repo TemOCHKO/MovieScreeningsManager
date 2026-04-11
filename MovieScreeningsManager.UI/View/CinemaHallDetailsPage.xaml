@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:MovieScreeningsManager.UIModels;assembly=MovieScreeningsManager.UIModels"
+             xmlns:pages="clr-namespace:MovieScreeningsManager.UI.View"
+             xmlns:models="clr-namespace:MovieScreeningsManager.DTOModels.Screenings;assembly=MovieScreeningsManager.DTOModels"
+             xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
              xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
              x:Class="MovieScreeningsManager.UI.View.CinemaHallDetailsPage"
-             x:DataType="models:CinemaHallUIModel"
+             x:DataType="vm:CinemaHallDetailsViewModel"
              Title="Cinema Hall Details">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,25 +18,39 @@
         <VerticalStackLayout>
             <Label
                 Style="{StaticResource SubHeadline}"
-                Text="{Binding Name}"/>
+                Text="{Binding CurrentCinemaHall.Name}"/>
 
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Capacity: "/>
-                <Label Text="{Binding Capacity}"/>
+                <Label Text="{Binding CurrentCinemaHall.Capacity}"/>
+            </HorizontalStackLayout>
+
+            <Label
+                Style="{StaticResource SubHeadline}"
+                Text="{Binding CurrentCinemaHall.Type, Converter={StaticResource EnumToDisplayName}}"/>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Row Count: "/>
+                <Label Text="{Binding CurrentCinemaHall.RowsCount}"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
         <CollectionView Grid.Row="1"
             ItemsSource="{Binding Screenings}"
-            SelectionMode="Single"
-            SelectionChanged="ScreeningSelected">
+            SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate
-                    x:DataType="models:ScreeningUIModel">
+                    x:DataType="models:ScreeningListDTO">
                     <Border
                         Stroke="DimGrey"
                         Padding="2"
                         Margin="10, 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallDetailsViewModel}},
+                                Path=LoadScreeningCommand}"
+                                CommandParameter="{Binding Id}"/>
+
+                        </Border.GestureRecognizers>
                         <VerticalStackLayout>
                             <Label Text="{Binding Name}"/>
 
@@ -46,11 +62,6 @@
                             <HorizontalStackLayout>
                                 <Label Text="Launch Time: "/>
                                 <Label Text="{Binding LaunchTime}"/>
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout>
-                                <Label Text="Genre: "/>
-                                <Label Text="{Binding Genre, Converter={StaticResource EnumToDisplayName}}"/>
                             </HorizontalStackLayout>
 
                         </VerticalStackLayout>
