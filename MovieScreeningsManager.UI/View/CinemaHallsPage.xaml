@@ -11,7 +11,7 @@
         ItemsSource="{Binding CinemaHalls}"
         SelectionMode="Single"
         SelectedItem="{Binding SelectedCinemaHall}"
-        SelectionChangedCommand="{Binding CinemaHallSelectedCommand}">
+        SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
         <CollectionView.ItemTemplate>
             <DataTemplate
                 x:DataType="models:CinemaHallListDTO">

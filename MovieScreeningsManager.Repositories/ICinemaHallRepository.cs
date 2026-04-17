@@ -4,7 +4,7 @@ namespace MovieScreeningsManager.Repositories
 {
     public interface ICinemaHallRepository
     {
-        IEnumerable<CinemaHallDBModel> GetCinemaHalls();
-        CinemaHallDBModel GetCinemaHall(Guid id);
+        IAsyncEnumerable<CinemaHallDBModel> GetCinemaHallsAsync();
+        Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id);
     }
 }

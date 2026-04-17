@@ -13,6 +13,9 @@ namespace MovieScreeningsManager.UI.ViewModels
     {
         private readonly ICinemaHallService _cinemaHallService;
         private readonly IScreeningService _screeningService;
+
+        private Guid _cinemaHallId;
+
         [ObservableProperty]
         private CinemaHallDetailsDTO _currentCinemaHall;
         [ObservableProperty]
@@ -26,16 +29,22 @@ namespace MovieScreeningsManager.UI.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            var cinemaHallId = (Guid)query["CinemaHallId"];
-            CurrentCinemaHall = _cinemaHallService.GetCinemaHall(cinemaHallId);
-            Screenings = new ObservableCollection<ScreeningListDTO>(_screeningService.GetScreeningsByCinemaHall(cinemaHallId));
+            _cinemaHallId = (Guid)query["CinemaHallId"];
             OnPropertyChanged(nameof(Screenings));
         }
 
-        [RelayCommand]
-        private void LoadScreening(Guid screeningId)
+        internal async 
+        Task
+RefreshData()
         {
-            Shell.Current.GoToAsync($"{nameof(ScreeningDetailsPage)}", new Dictionary<string, object> { { "ScreeningId", screeningId } });
+            CurrentCinemaHall = await _cinemaHallService.GetCinemaHallAsync(_cinemaHallId);
+            Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningService.GetScreeningsByCinemaHallAsync(_cinemaHallId));
+        }
+
+        [RelayCommand]
+        private async Task LoadScreening(Guid screeningId)
+        {
+            await Shell.Current.GoToAsync($"{nameof(ScreeningDetailsPage)}", new Dictionary<string, object> { { "ScreeningId", screeningId } });
         }
     }
 }

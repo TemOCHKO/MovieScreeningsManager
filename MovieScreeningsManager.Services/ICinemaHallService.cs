@@ -4,7 +4,7 @@ namespace MovieScreeningsManager.Services
 {
     public interface ICinemaHallService
     {
-        IEnumerable<CinemaHallListDTO> GetCinemaHalls();
-        CinemaHallDetailsDTO GetCinemaHall(Guid cinemaHallid);
+        IAsyncEnumerable<CinemaHallListDTO> GetCinemaHallsAsync();
+        Task<CinemaHallDetailsDTO> GetCinemaHallAsync(Guid cinemaHallid);
     }
 }

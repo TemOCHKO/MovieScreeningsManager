@@ -4,11 +4,11 @@ namespace MovieScreeningsManager.Storage
 {
     public interface IStorageContext
     {
-        IEnumerable<CinemaHallDBModel> GetCinemaHalls();
-        CinemaHallDBModel GetCinemaHall(Guid id);
-        IEnumerable<ScreeningDBModel> GetScreeningsByCinemaHall(Guid cinemaHallId);
-        ScreeningDBModel GetScreening(Guid id);
-        int GetScreeningsCountByCinemaHall(Guid cinemaHallId);
+        IAsyncEnumerable<CinemaHallDBModel> GetCinemaHallsAsync();
+        Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id);
+        Task<IEnumerable<ScreeningDBModel>> GetScreeningsByCinemaHallAsync(Guid cinemaHallId);
+        Task<ScreeningDBModel> GetScreeningAsync(Guid id);
+        Task<int> GetScreeningsCountByCinemaHallAsync(Guid cinemaHallId);
 
     }
 }

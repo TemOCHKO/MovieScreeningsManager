@@ -11,19 +11,19 @@ namespace MovieScreeningsManager.Repositories
             _storageContext = storageContext;
         }
 
-        public IEnumerable<ScreeningDBModel> GetScreeningsByCinemaHall(Guid cinemaHallId)
+        public Task<IEnumerable<ScreeningDBModel>> GetScreeningsByCinemaHallAsync(Guid cinemaHallId)
         {
-            return _storageContext.GetScreeningsByCinemaHall(cinemaHallId);
+            return _storageContext.GetScreeningsByCinemaHallAsync(cinemaHallId);
         }
 
-        public int GetScreeningsCountByCinemaHall(Guid cinemaHallId)
+        public Task<int> GetScreeningsCountByCinemaHallAsync(Guid cinemaHallId)
         {
-            return _storageContext.GetScreeningsCountByCinemaHall(cinemaHallId);
+            return _storageContext.GetScreeningsCountByCinemaHallAsync(cinemaHallId);
         }
 
-        public ScreeningDBModel GetScreening(Guid id)
+        public Task<ScreeningDBModel> GetScreeningAsync(Guid id)
         {
-            return _storageContext.GetScreening(id);
+            return _storageContext.GetScreeningAsync(id);
         }
     }
 }

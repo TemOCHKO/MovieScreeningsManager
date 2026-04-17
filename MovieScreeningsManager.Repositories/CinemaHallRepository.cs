@@ -13,14 +13,14 @@ namespace MovieScreeningsManager.Repositories
             _storageContext = storageContext;
         }
 
-        public CinemaHallDBModel GetCinemaHall(Guid id)
+        public Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id)
         {
-            return _storageContext.GetCinemaHall(id);
+            return _storageContext.GetCinemaHallAsync(id);
         }
 
-        public IEnumerable<CinemaHallDBModel> GetCinemaHalls()
+        public IAsyncEnumerable<CinemaHallDBModel> GetCinemaHallsAsync()
         {
-            return _storageContext.GetCinemaHalls();
+            return _storageContext.GetCinemaHallsAsync();
         }
     }
 }

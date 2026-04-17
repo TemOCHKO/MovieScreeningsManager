@@ -1,33 +1,44 @@
-﻿using MovieScreeningsManager.DTOModels.CinemaHalls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using MovieScreeningsManager.DTOModels.CinemaHalls;
 using MovieScreeningsManager.Services;
 using MovieScreeningsManager.UI.View;
 using System.Collections.ObjectModel;
 
 namespace MovieScreeningsManager.UI.ViewModels
 {
-    public class CinemaHallViewModel
+    public partial class CinemaHallViewModel : ObservableObject
     {
         private readonly ICinemaHallService _cinemaHallService;
-        public ObservableCollection<CinemaHallListDTO> CinemaHalls { get; set; }
-        public CinemaHallListDTO SelectedCinemaHall { get; set; }
+        [ObservableProperty]
+        public ObservableCollection<CinemaHallListDTO> _cinemaHalls;
+        [ObservableProperty]
+        public CinemaHallListDTO _selectedCinemaHall;
         public Command CinemaHallSelectedCommand { get; }
         public CinemaHallViewModel(ICinemaHallService cinemaHallService)
         {
             // Rendering responsibility (cant reference elements)
 
             _cinemaHallService = cinemaHallService;
+        }
 
-            CinemaHalls = new ObservableCollection<CinemaHallListDTO>(_cinemaHallService.GetCinemaHalls());
-            CinemaHallSelectedCommand = new Command(LoadCinemaHall);
+        internal async Task RefreshData()
+        {
+            CinemaHalls = new ObservableCollection<CinemaHallListDTO>();
+            await foreach (var cinemaHall in _cinemaHallService.GetCinemaHallsAsync())
+            {
+                CinemaHalls.Add(cinemaHall);
+            }
 
         }
 
-        private void LoadCinemaHall()
+        [RelayCommand]
+        private async Task LoadCinemaHall()
         {
             if (SelectedCinemaHall == null)
                 return;
 
-            Shell.Current.GoToAsync($"{nameof(CinemaHallDetailsPage)}", new Dictionary<string, object> { { "CinemaHallId", SelectedCinemaHall.Id } });
+            await Shell.Current.GoToAsync($"{nameof(CinemaHallDetailsPage)}", new Dictionary<string, object> { { "CinemaHallId", SelectedCinemaHall.Id } });
         }
     }
 }

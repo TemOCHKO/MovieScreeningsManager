@@ -18,6 +18,8 @@ namespace MovieScreeningsManager.UI.ViewModels
         public int YearOfRelease => _currentScreening?.YearOfRelease ?? 0;
         public DateTime EndTime => _endTime;
 
+        private Guid _screeningId;
+
         private void CalculateEndTime()
         {
             if (_currentScreening != null)
@@ -32,8 +34,12 @@ namespace MovieScreeningsManager.UI.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            var screeningId = (Guid)query["ScreeningId"];
-            _currentScreening = _screeningService.GetScreening(screeningId);
+            _screeningId = (Guid)query["ScreeningId"];
+        }
+
+        internal async Task RefreshData()
+        {  
+            _currentScreening = await _screeningService.GetScreeningAsync(_screeningId);
             CalculateEndTime();
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(LaunchTime));
@@ -41,7 +47,7 @@ namespace MovieScreeningsManager.UI.ViewModels
             OnPropertyChanged(nameof(Genre));
             OnPropertyChanged(nameof(YearOfRelease));
             OnPropertyChanged(nameof(EndTime));
-
+            
         }
     }
 }

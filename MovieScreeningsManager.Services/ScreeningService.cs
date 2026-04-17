@@ -10,17 +10,15 @@ namespace MovieScreeningsManager.Services
         {
             _movieScreeningRepository = movieScreeningsRepository;
         }
-        public IEnumerable<ScreeningListDTO> GetScreeningsByCinemaHall(Guid cinemaHallId)
+        public async Task<IEnumerable<ScreeningListDTO>> GetScreeningsByCinemaHallAsync(Guid cinemaHallId)
         {
-            foreach (var screening in _movieScreeningRepository.GetScreeningsByCinemaHall(cinemaHallId))
-            {
-                yield return new ScreeningListDTO(screening.Id, screening.Name, screening.LaunchTime, screening.Duration);
-            }
+            return (await _movieScreeningRepository.GetScreeningsByCinemaHallAsync(cinemaHallId))
+                .Select(screening => new ScreeningListDTO(screening.Id, screening.Name, screening.LaunchTime, screening.Duration));
         }
      
-        public ScreeningDetailsDTO GetScreening(Guid id)
+        public async Task<ScreeningDetailsDTO> GetScreeningAsync(Guid id)
         {
-            var screening = _movieScreeningRepository.GetScreening(id);
+            var screening = await _movieScreeningRepository.GetScreeningAsync(id);
             return screening is null ? null : new ScreeningDetailsDTO(screening.Id, screening.Name, screening.LaunchTime, screening.Duration, screening.Genre, screening.YearOfRelease);
         }
 

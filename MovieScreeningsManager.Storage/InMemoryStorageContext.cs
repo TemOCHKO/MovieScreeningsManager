@@ -30,36 +30,49 @@ namespace MovieScreeningsManager.Storage
         }
 
 
-        public IEnumerable<CinemaHallDBModel> GetCinemaHalls()
+        public async IAsyncEnumerable<CinemaHallDBModel> GetCinemaHallsAsync()
         {
             foreach (var cinemaHall in _cinemaHalls)
             {
+                await Task.Delay(1000);
                 yield return new CinemaHallDBModel(cinemaHall.Id, cinemaHall.Name, cinemaHall.Capacity, cinemaHall.Type, cinemaHall.rowCount);
             }
         }
 
-        public IEnumerable<ScreeningDBModel> GetScreeningsByCinemaHall(Guid cinemaHallId)
+        public Task<IEnumerable<ScreeningDBModel>> GetScreeningsByCinemaHallAsync(Guid cinemaHallId)
         {
-            return _screenings.Where(screening => screening.cinemaHallId == cinemaHallId).Select(screening => new ScreeningDBModel(screening.Id, screening.name, screening.genre, screening.yearOfRelease, screening.launchTime, screening.duration, screening.cinemaHallId));
+            return Task.Run(() => {
+                Thread.Sleep(1000);
+                return _screenings.Where(screening => screening.cinemaHallId == cinemaHallId).Select(screening => new ScreeningDBModel(screening.Id, screening.name, screening.genre, screening.yearOfRelease, screening.launchTime, screening.duration, screening.cinemaHallId));
+
+            }); 
         }
 
-        public int GetScreeningsCountByCinemaHall(Guid cinemaHallId)
+        public Task<int> GetScreeningsCountByCinemaHallAsync(Guid cinemaHallId)
         {
-            return _screenings.Count(screening => screening.cinemaHallId == cinemaHallId);
+            return Task.Run(() => {
+                Thread.Sleep(500);
+                return _screenings.Count(screening => screening.cinemaHallId == cinemaHallId);
+            });
         }
 
-        public CinemaHallDBModel GetCinemaHall(Guid id)
+        public Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id)
         {
-            var cinemaHall = _cinemaHalls.FirstOrDefault(ch => ch.Id == id);
-            if (cinemaHall == null)
-                return null;
-            return new CinemaHallDBModel(cinemaHall.Id, cinemaHall.Name, cinemaHall.Capacity, cinemaHall.Type, cinemaHall.rowCount);
+            return Task.Run(() => {
+                Thread.Sleep(1000);
+                var cinemaHall = _cinemaHalls.FirstOrDefault(ch => ch.Id == id);
+                if (cinemaHall == null)
+                    return null;
+                return new CinemaHallDBModel(cinemaHall.Id, cinemaHall.Name, cinemaHall.Capacity, cinemaHall.Type, cinemaHall.rowCount);
+            });
         }
 
-        public ScreeningDBModel GetScreening(Guid id)
+        public Task<ScreeningDBModel> GetScreeningAsync(Guid id)
         {
-            var screening = _screenings.FirstOrDefault(screening => screening.Id == id);
-            return screening is null ? null : new ScreeningDBModel(screening.Id, screening.name, screening.genre, screening.yearOfRelease, screening.launchTime, screening.duration, screening.cinemaHallId);
+            return Task.Run(() => {
+                var screening = _screenings.FirstOrDefault(screening => screening.Id == id);
+                return screening is null ? null : new ScreeningDBModel(screening.Id, screening.name, screening.genre, screening.yearOfRelease, screening.launchTime, screening.duration, screening.cinemaHallId);
+                });
         }
     }
 }

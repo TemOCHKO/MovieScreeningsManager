@@ -13,20 +13,21 @@ namespace MovieScreeningsManager.Services
             _movieScreeningsRepository = movieScreeningsRepository;
         }
 
-        public CinemaHallDetailsDTO GetCinemaHall(Guid cinemaHallid)
+        public async Task<CinemaHallDetailsDTO> GetCinemaHallAsync(Guid cinemaHallid)
         {
-            var cinemaHall = _cinemaHallRepository.GetCinemaHall(cinemaHallid);
+            var cinemaHall = await _cinemaHallRepository.GetCinemaHallAsync(cinemaHallid);
             if (cinemaHall == null)
                 return null;
-            return new  CinemaHallDetailsDTO(cinemaHall.Id, cinemaHall.Name, cinemaHall.Capacity, cinemaHall.Type, _movieScreeningsRepository.GetScreeningsCountByCinemaHall(cinemaHallid), cinemaHall.RowCount);
+            var movieScreeningsCount = await _movieScreeningsRepository.GetScreeningsCountByCinemaHallAsync(cinemaHallid);
+            return new  CinemaHallDetailsDTO(cinemaHall.Id, cinemaHall.Name, cinemaHall.Capacity, cinemaHall.Type, movieScreeningsCount, cinemaHall.RowCount);
         }
 
 
-        public IEnumerable<CinemaHallListDTO> GetCinemaHalls()
+        public async IAsyncEnumerable<CinemaHallListDTO> GetCinemaHallsAsync()
         {
-            foreach (var cinema in _cinemaHallRepository.GetCinemaHalls())
+            await foreach (var cinema in _cinemaHallRepository.GetCinemaHallsAsync())
             {
-                var movieScreeningsCount = _movieScreeningsRepository.GetScreeningsCountByCinemaHall(cinema.Id);
+                var movieScreeningsCount = await _movieScreeningsRepository.GetScreeningsCountByCinemaHallAsync(cinema.Id);
                 yield return new CinemaHallListDTO(cinema.Id, cinema.Name, cinema.Capacity, movieScreeningsCount);
             }
         }
