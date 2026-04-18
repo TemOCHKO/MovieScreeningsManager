@@ -7,74 +7,90 @@
              xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
              x:Class="MovieScreeningsManager.UI.View.ScreeningDetailsPage"
              x:DataType="vm:ScreeningDetailsViewModel"
-             Title="Screening Details">
+             Title="Screening Details" IsEnabled="{Binding IsNotBusy}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <tools:EnumToDisplayNameConverter x:Key="EnumToDisplayName"></tools:EnumToDisplayNameConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
-        <Label 
-            Style="{StaticResource SubHeadline}"
-            Text="{Binding Name}"/>
+    <Grid>
+        <ScrollView>
+        <VerticalStackLayout>
+            <Label 
+                Style="{StaticResource SubHeadline}"
+                Text="{Binding Name}"/>
 
-        <Border
-            Stroke="DimGrey"
-            Padding="2"
-            Margin="10, 10">    
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Year of release: "
-                       FontSize="17"/>
-                <Label Text="{Binding YearOfRelease}" FontSize="17"/>
-            </HorizontalStackLayout>
-        </Border>
+            <Border
+                Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">    
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label Text="Year of release: "
+                           FontSize="17"/>
+                    <Label Text="{Binding YearOfRelease}" FontSize="17"/>
+                </HorizontalStackLayout>
+            </Border>
 
-        <Border
-            Stroke="DimGrey"
-            Padding="2"
-            Margin="10, 10">
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Duration (In minutes): "
-                    FontSize="17"/>
-                <Label Text="{Binding Duration}"
-                    FontSize="17"/>
-            </HorizontalStackLayout>
-        </Border>
+            <Border
+                Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label Text="Duration (In minutes): "
+                        FontSize="17"/>
+                    <Label Text="{Binding Duration}"
+                        FontSize="17"/>
+                </HorizontalStackLayout>
+            </Border>
 
-        <Border
-            Stroke="DimGrey"
-            Padding="2"
-            Margin="10, 10">
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Genre: "  FontSize="17"/>
-                <Label Text="{Binding Genre, Converter={StaticResource EnumToDisplayName}}"  FontSize="17"/>
-            </HorizontalStackLayout>
-        </Border>
+            <Border
+                Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label Text="Genre: "  FontSize="17"/>
+                    <Label Text="{Binding Genre, Converter={StaticResource EnumToDisplayName}}"  FontSize="17"/>
+                </HorizontalStackLayout>
+            </Border>
 
-        <Border
-            Stroke="DimGrey"
-            Padding="2"
-            Margin="10, 10">
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Launch Time: " FontSize="17"/>
-                <Label Text="{Binding LaunchTime}"  FontSize="17"/>
-            </HorizontalStackLayout>
-        </Border>
+            <Border
+                Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label Text="Launch Time: " FontSize="17"/>
+                    <Label Text="{Binding LaunchTime}"  FontSize="17"/>
+                </HorizontalStackLayout>
+            </Border>
 
-        <Border
-            Stroke="DimGrey"
-            Padding="2"
-            Margin="10, 10">
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="End Time: " FontSize="17"/>
-                <Label Text="{Binding EndTime}" FontSize="17"/>
-            </HorizontalStackLayout>
+            <Border
+                Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label Text="End Time: " FontSize="17"/>
+                    <Label Text="{Binding EndTime}" FontSize="17"/>
+                </HorizontalStackLayout>
 
-        </Border>
-    </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+        </ScrollView>
+        <BoxView IsVisible="{Binding IsBusy}"
+             BackgroundColor="Gray"
+             Opacity="0.3"
+             InputTransparent="False"
+            />
+        <ActivityIndicator
+            Color="AliceBlue"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            />
+    </Grid>
 </ContentPage>

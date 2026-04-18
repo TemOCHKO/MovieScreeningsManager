@@ -25,7 +25,7 @@ namespace MovieScreeningsManager.UI
             builder.Logging.AddDebug();
 
 #endif
-            builder.Services.AddSingleton<IStorageContext, InMemoryStorageContext>();
+            builder.Services.AddSingleton<IStorageContext, SQLLiteStorageContext>();
             builder.Services.AddSingleton<ICinemaHallRepository, CinemaHallRepository>();
             builder.Services.AddSingleton<IMovieScreeningsRepository, MovieScreeningsRepository>();
 

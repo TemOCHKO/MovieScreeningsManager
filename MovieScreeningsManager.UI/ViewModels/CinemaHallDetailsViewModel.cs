@@ -9,10 +9,13 @@ using System.Collections.ObjectModel;
 
 namespace MovieScreeningsManager.UI.ViewModels
 { 
-    public partial class CinemaHallDetailsViewModel : ObservableObject, IQueryAttributable
+    public partial class CinemaHallDetailsViewModel : BaseViewModel, IQueryAttributable
     {
         private readonly ICinemaHallService _cinemaHallService;
         private readonly IScreeningService _screeningService;
+
+        private Task<CinemaHallDetailsDTO> _cinemaHallTask;
+        private Task<IEnumerable<ScreeningListDTO>> _screeningsTask;
 
         private Guid _cinemaHallId;
 
@@ -30,21 +33,25 @@ namespace MovieScreeningsManager.UI.ViewModels
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             _cinemaHallId = (Guid)query["CinemaHallId"];
+            _cinemaHallTask = _cinemaHallService.GetCinemaHallAsync(_cinemaHallId);
+            _screeningsTask = _screeningService.GetScreeningsByCinemaHallAsync(_cinemaHallId);
             OnPropertyChanged(nameof(Screenings));
         }
 
-        internal async 
-        Task
-RefreshData()
+        internal async Task RefreshData()
         {
-            CurrentCinemaHall = await _cinemaHallService.GetCinemaHallAsync(_cinemaHallId);
-            Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningService.GetScreeningsByCinemaHallAsync(_cinemaHallId));
+            IsBusy = true;
+            CurrentCinemaHall = await _cinemaHallTask;
+            Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningsTask);
+            IsBusy = false;
         }
 
         [RelayCommand]
         private async Task LoadScreening(Guid screeningId)
         {
+            IsBusy = true;
             await Shell.Current.GoToAsync($"{nameof(ScreeningDetailsPage)}", new Dictionary<string, object> { { "ScreeningId", screeningId } });
+            IsBusy = false;
         }
     }
 }

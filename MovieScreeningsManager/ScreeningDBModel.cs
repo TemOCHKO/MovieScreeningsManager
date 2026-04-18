@@ -5,8 +5,8 @@ namespace MovieScreeningsManager.DBModels
 {
     public class ScreeningDBModel
     {
-        public Guid Id { get; }
-        public Guid CinemaHallId { get;}
+        public Guid Id { get; set; }
+        public Guid CinemaHallId { get; set; }
         public string Name { get; set; }
         public FilmGenre Genre { get; set; }
         public int YearOfRelease { get; set; }
@@ -26,6 +26,11 @@ namespace MovieScreeningsManager.DBModels
         public ScreeningDBModel(string name, FilmGenre genre, int yearOfRelease, DateTime launchTime, int duration, Guid cinemaHallId) : this(Guid.NewGuid(), name, genre, yearOfRelease, launchTime, duration, cinemaHallId)
         {
             
+        }
+
+        public ScreeningDBModel()
+        {
+
         }
     }
 }

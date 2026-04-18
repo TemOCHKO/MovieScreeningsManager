@@ -7,7 +7,7 @@
              xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
              x:Class="MovieScreeningsManager.UI.View.CinemaHallDetailsPage"
              x:DataType="vm:CinemaHallDetailsViewModel"
-             Title="Cinema Hall Details">
+             Title="Cinema Hall Details" IsEnabled="{Binding IsNotBusy}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <tools:EnumToDisplayNameConverter x:Key="EnumToDisplayName"></tools:EnumToDisplayNameConverter>
@@ -70,5 +70,17 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
+        <BoxView IsVisible="{Binding IsBusy}"
+             BackgroundColor="Gray"
+             Opacity="0.3"
+             InputTransparent="False"
+             Grid.RowSpan="2"/>
+        <ActivityIndicator
+            Color="AliceBlue"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Grid.RowSpan="2"/>
     </Grid>
 </ContentPage>

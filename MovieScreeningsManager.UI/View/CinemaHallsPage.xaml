@@ -6,38 +6,50 @@
              xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
              x:Class="MovieScreeningsManager.UI.View.CinemaHallsPage"
              x:DataType="vm:CinemaHallViewModel"
-             Title="Cinema Halls Page">
-    <CollectionView
-        ItemsSource="{Binding CinemaHalls}"
-        SelectionMode="Single"
-        SelectedItem="{Binding SelectedCinemaHall}"
-        SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate
-                x:DataType="models:CinemaHallListDTO">
-                <Border
-                    Stroke="DimGrey"
-                    Padding="2"
-                    Margin="10, 10">
-                    <VerticalStackLayout>
-                        <Label
-                            Style="{StaticResource SubHeadline}"
-                            Text="{Binding Name}">
-                            
-                        </Label>
-                        <Label Text="{Binding Capacity}"
-                               FontSize="15"
-                               HorizontalOptions="Center">
-                            
-                        </Label>
-                        <HorizontalStackLayout HorizontalOptions="Center">
-                            <Label Text="Number of screenings: "/>
-                            <Label Text="{Binding MovieScreeningsCount}"/>
-                        </HorizontalStackLayout>
-                </VerticalStackLayout>
-                </Border>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-        
-    </CollectionView>
+             Title="Cinema Halls Page" IsEnabled="{Binding IsNotBusy}">
+    <Grid>
+        <CollectionView
+            ItemsSource="{Binding CinemaHalls}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedCinemaHall}"
+            SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="models:CinemaHallListDTO">
+                    <Border
+                        Stroke="DimGrey"
+                        Padding="2"
+                        Margin="10, 10">
+                        <VerticalStackLayout>
+                            <Label
+                                Style="{StaticResource SubHeadline}"
+                                Text="{Binding Name}">
+
+                            </Label>
+                            <Label Text="{Binding Capacity}"
+                                   FontSize="15"
+                                   HorizontalOptions="Center">
+
+                            </Label>
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label Text="Number of screenings: "/>
+                                <Label Text="{Binding MovieScreeningsCount}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <BoxView IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.3"
+                 InputTransparent="False"/>
+        <ActivityIndicator
+            Color="AliceBlue"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+    </Grid>
 </ContentPage>
