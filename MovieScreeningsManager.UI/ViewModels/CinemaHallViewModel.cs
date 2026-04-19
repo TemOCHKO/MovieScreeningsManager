@@ -25,12 +25,22 @@ namespace MovieScreeningsManager.UI.ViewModels
         internal async Task RefreshData()
         {
             IsBusy = true;
-            CinemaHalls = new ObservableCollection<CinemaHallListDTO>();
-            await foreach (var cinemaHall in _cinemaHallService.GetCinemaHallsAsync())
+            try
             {
-                CinemaHalls.Add(cinemaHall);
+                CinemaHalls = new ObservableCollection<CinemaHallListDTO>();
+                await foreach (var cinemaHall in _cinemaHallService.GetCinemaHallsAsync())
+                {
+                    CinemaHalls.Add(cinemaHall);
+                }
             }
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to load screennings: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
 
         }
 
@@ -38,12 +48,22 @@ namespace MovieScreeningsManager.UI.ViewModels
         private async Task LoadCinemaHall()
         {
             IsBusy = true;
-            if (SelectedCinemaHall == null)
-                return;
+            try
+            {
+                if (SelectedCinemaHall == null)
+                    return;
 
-            await Shell.Current.GoToAsync($"{nameof(CinemaHallDetailsPage)}", new Dictionary<string, object> { { "CinemaHallId", SelectedCinemaHall.Id } });
+                await Shell.Current.GoToAsync($"{nameof(CinemaHallDetailsPage)}", new Dictionary<string, object> { { "CinemaHallId", SelectedCinemaHall.Id } });
 
-            IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

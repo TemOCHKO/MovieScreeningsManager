@@ -32,10 +32,14 @@ namespace MovieScreeningsManager.UI
             builder.Services.AddSingleton<ICinemaHallService, CinemaHallService>();
             builder.Services.AddSingleton<IScreeningService, ScreeningService>();
             builder.Services.AddTransient<CinemaHallsPage>();
+            builder.Services.AddTransient<MovieScreeningCreatePage>();
 
             builder.Services.AddTransient<CinemaHallViewModel>();
             builder.Services.AddTransient<CinemaHallDetailsViewModel>();
             builder.Services.AddTransient<ScreeningDetailsViewModel>();
+            builder.Services.AddTransient<ScreeningCreateViewModel>();
+
+
 
             return builder.Build();
         }

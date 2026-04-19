@@ -9,6 +9,8 @@ namespace MovieScreeningsManager.Storage
         Task<IEnumerable<ScreeningDBModel>> GetScreeningsByCinemaHallAsync(Guid cinemaHallId);
         Task<ScreeningDBModel> GetScreeningAsync(Guid id);
         Task<int> GetScreeningsCountByCinemaHallAsync(Guid cinemaHallId);
+        Task SaveScreeningAsync(ScreeningDBModel screening);
+        Task DeleteScreeningAsync(Guid screeningId);
 
     }
 }

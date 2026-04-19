@@ -38,20 +38,83 @@ namespace MovieScreeningsManager.UI.ViewModels
             OnPropertyChanged(nameof(Screenings));
         }
 
-        internal async Task RefreshData()
+        [RelayCommand]
+        public async Task RefreshData()
         {
             IsBusy = true;
-            CurrentCinemaHall = await _cinemaHallTask;
-            Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningsTask);
-            IsBusy = false;
+            try
+            {
+                CurrentCinemaHall = await _cinemaHallService.GetCinemaHallAsync(_cinemaHallId) ?? throw new Exception("Cinema hall not found");
+                Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningsTask);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to load cinema hall details: {ex.Message}", "OK");
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]
         private async Task LoadScreening(Guid screeningId)
         {
             IsBusy = true;
-            await Shell.Current.GoToAsync($"{nameof(ScreeningDetailsPage)}", new Dictionary<string, object> { { "ScreeningId", screeningId } });
-            IsBusy = false;
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(ScreeningDetailsPage)}", new Dictionary<string, object> { { "ScreeningId", screeningId } });
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to screening details: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
+        [RelayCommand]
+        private async Task AddScreening()
+        {
+            IsBusy = true;
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(MovieScreeningCreatePage)}", new Dictionary<string, object> { { nameof(ScreeningCreateDTO.CinemaHallId), _cinemaHallId } });
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to screening create page: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task DeleteScreening(ScreeningListDTO screening)
+        {
+            IsBusy = true;
+            try
+            {
+                if (await Shell.Current.DisplayAlertAsync("Confirm", "Are you sure you want to delete this screening?", "Yes", "No"))
+                {
+                    await _screeningService.DeleteScreeningAsync(screening.Id);
+                    Screenings.Remove(screening);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to screening details: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
     }
 }

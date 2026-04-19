@@ -10,7 +10,7 @@ namespace MovieScreeningsManager.Storage
     public class SQLLiteStorageContext : IStorageContext
     {
         private const string DatabaseFileName = "cinemaHall_manager.db3";
-        private static readonly string DatabasePath = Path.Combine(FileSystem.AppDataDirectory, "DB Storage", DatabaseFileName);
+        private static readonly string DatabasePath = Path.Combine(FileSystem.AppDataDirectory, "DB Storage 1", DatabaseFileName);
         private SQLiteAsyncConnection _databaseConnection;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
@@ -89,6 +89,16 @@ namespace MovieScreeningsManager.Storage
         {
             await Init();
             return await _databaseConnection.Table<ScreeningDBModel>().CountAsync(s => s.CinemaHallId == cinemaHallId);
+        }
+
+        public async Task SaveScreeningAsync(ScreeningDBModel screening)
+        {
+            await _databaseConnection.InsertOrReplaceAsync(screening);
+        }
+
+        public async Task DeleteScreeningAsync(Guid screeningId)
+        {
+            await _databaseConnection.DeleteAsync<ScreeningDBModel>(screeningId);
         }
     }
 }

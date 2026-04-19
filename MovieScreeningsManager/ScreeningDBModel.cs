@@ -1,10 +1,12 @@
 ﻿using MovieScreeningsManager.Common.Enums;
+using SQLite;
 using System.Xml.Linq;
 
 namespace MovieScreeningsManager.DBModels
 {
     public class ScreeningDBModel
     {
+        [PrimaryKey]
         public Guid Id { get; set; }
         public Guid CinemaHallId { get; set; }
         public string Name { get; set; }

@@ -8,8 +8,10 @@ namespace MovieScreeningsManager.UI
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("CinemaHallsPage/CinemaHallDetailsPage", typeof(CinemaHallDetailsPage));
-            Routing.RegisterRoute("CinemaHallDetailsPage/ScreeningDetailsPage", typeof(ScreeningDetailsPage));
+            Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallDetailsPage)}", typeof(CinemaHallDetailsPage));
+            Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallDetailsPage)}/{nameof(ScreeningDetailsPage)}", typeof(ScreeningDetailsPage));
+            Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallDetailsPage)}/{nameof(MovieScreeningCreatePage)}", typeof(MovieScreeningCreatePage));
+
         }
     }
 }

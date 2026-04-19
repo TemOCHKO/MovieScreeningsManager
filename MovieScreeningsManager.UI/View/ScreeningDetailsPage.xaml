@@ -67,17 +67,7 @@
                 </HorizontalStackLayout>
             </Border>
 
-            <Border
-                Stroke="DimGrey"
-                Padding="2"
-                Margin="10, 10">
-                <HorizontalStackLayout
-                    HorizontalOptions="Center">
-                    <Label Text="End Time: " FontSize="17"/>
-                    <Label Text="{Binding EndTime}" FontSize="17"/>
-                </HorizontalStackLayout>
-
-            </Border>
+           
         </VerticalStackLayout>
         </ScrollView>
         <BoxView IsVisible="{Binding IsBusy}"

@@ -1,5 +1,7 @@
-﻿using MovieScreeningsManager.DTOModels.Screenings;
+﻿using MovieScreeningsManager.DBModels;
+using MovieScreeningsManager.DTOModels.Screenings;
 using MovieScreeningsManager.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieScreeningsManager.Services
 {
@@ -22,6 +24,18 @@ namespace MovieScreeningsManager.Services
             return screening is null ? null : new ScreeningDetailsDTO(screening.Id, screening.Name, screening.LaunchTime, screening.Duration, screening.Genre, screening.YearOfRelease);
         }
 
-       
+        public async Task CreateScreeningAsync(ScreeningCreateDTO screening)
+        {
+            var errors = screening.Validate();
+            if (errors.Count > 0)
+                throw new ValidationException(String.Join(Environment.NewLine, errors.Select(s => s.errorMessage)));
+            var newScreening = new ScreeningDBModel(screening.Name, screening.FilmGenre, screening.YearOfRelease, screening.LaunchTime, screening.Duration, screening.CinemaHallId);
+            await _movieScreeningRepository.SaveScreeningAsync(newScreening);
+        }
+
+        public Task DeleteScreeningAsync(Guid screeningId)
+        {
+            return _movieScreeningRepository.DeleteScreeningAsync(screeningId);
+        }
     }
 }

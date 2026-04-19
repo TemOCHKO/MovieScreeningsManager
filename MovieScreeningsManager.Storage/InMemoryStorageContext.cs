@@ -74,5 +74,15 @@ namespace MovieScreeningsManager.Storage
                 return screening is null ? null : new ScreeningDBModel(screening.Id, screening.name, screening.genre, screening.yearOfRelease, screening.launchTime, screening.duration, screening.cinemaHallId);
                 });
         }
+
+        public Task SaveScreeningAsync(ScreeningDBModel screening)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteScreeningAsync(Guid screeningId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
