@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
              x:Class="MovieScreeningsManager.UI.View.CinemaHallEditPage"
-             Title="CinemaHallEditPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:DataType="vm:CinemaHallEditViewModel"
+             Title="Edit Cinema Hall" IsEnabled="{Binding IsNotBusy}">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="10,20" Spacing="10">
+
+                <Label Text="Name"></Label>
+                <Entry Placeholder="Hall Name (e.g., IMAX 1)" Text="{Binding Name}"></Entry>
+
+                <Label Text="Capacity"></Label>
+                <Entry Placeholder="Total Seats" Text="{Binding Capacity}" Keyboard="Numeric"></Entry>
+
+                <Label Text="Row Count"></Label>
+                <Entry Placeholder="Number of Rows" Text="{Binding RowCount}" Keyboard="Numeric">
+                    </Entry>
+
+                    <Label Text="Hall Type"></Label>
+                    <Picker Title="Select Type"
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        ItemsSource="{Binding HallTypes}"
+                        SelectedItem="{Binding SelectedType}"></Picker>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Padding="10, 20, 10, 10">
+                        <Button Grid.Column="0" 
+                            Text="Save Changes"
+                            Command="{Binding UpdateCinemaHallCommand}"></Button>
+
+                        <Button Grid.Column="1" 
+                            Text="Back"
+                            Command="{Binding BackCommand}"></Button>
+                    </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <BoxView IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False"/>
+        <ActivityIndicator Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
 </ContentPage>

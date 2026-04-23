@@ -19,15 +19,14 @@
 
                         <SwipeView.RightItems>
                             <SwipeItems>
-                                <SwipeItem Text="Edit" 
-                           BackgroundColor="Blue"
-                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=EditCinemaHallCommand}"
-                           CommandParameter="{Binding .}" />
-
                                 <SwipeItem Text="Delete" 
-                           BackgroundColor="Red"
-                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=DeleteCinemaHallCommand}"
-                           CommandParameter="{Binding .}" />
+                                            BackgroundColor="Red"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=DeleteCinemaHallCommand}"
+                                            CommandParameter="{Binding .}" />
+                                <SwipeItem Text="Edit" 
+                                           BackgroundColor="Blue"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=EditCinemaHallCommand}"
+                                           CommandParameter="{Binding .}" />
                             </SwipeItems>
                         </SwipeView.RightItems>
 

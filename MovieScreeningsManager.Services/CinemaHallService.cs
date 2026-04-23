@@ -1,5 +1,7 @@
-﻿using MovieScreeningsManager.DTOModels.CinemaHalls;
+﻿using MovieScreeningsManager.DBModels;
+using MovieScreeningsManager.DTOModels.CinemaHalls;
 using MovieScreeningsManager.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieScreeningsManager.Services
 {
@@ -35,6 +37,22 @@ namespace MovieScreeningsManager.Services
                 var movieScreeningsCount = await _movieScreeningsRepository.GetScreeningsCountByCinemaHallAsync(cinema.Id);
                 yield return new CinemaHallListDTO(cinema.Id, cinema.Name, cinema.Capacity, movieScreeningsCount);
             }
+        }
+
+        public async Task UpdateCinemaHallAsync(CinemaHallEditDTO cinemaHall)
+        {
+
+            var errors = cinemaHall.Validate();
+            if (errors.Count > 0)
+                throw new ValidationException(String.Join(Environment.NewLine, errors.Select(s => s.errorMessage)));
+            await _cinemaHallRepository.UpdateCinemaHallAsync(new CinemaHallDBModel
+            {
+                Id = cinemaHall.Id,
+                Name = cinemaHall.Name,
+                Capacity = cinemaHall.Capacity,
+                Type = cinemaHall.Type,
+                RowCount = cinemaHall.RowCount
+            });
         }
     }
 }

@@ -13,6 +13,7 @@ namespace MovieScreeningsManager.Storage
         Task DeleteScreeningAsync(Guid screeningId);
         Task DeleteCinemaHallAsync(Guid cinemaHallId);
         Task UpdateScreeningAsync(ScreeningDBModel screening);
+        Task UpdateCinemaHallAsync(CinemaHallDBModel cinemaHall);
 
     }
 }

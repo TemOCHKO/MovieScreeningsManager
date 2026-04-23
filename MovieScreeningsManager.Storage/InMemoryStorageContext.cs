@@ -94,5 +94,10 @@ namespace MovieScreeningsManager.Storage
         {
             throw new NotImplementedException();
         }
+
+        public Task UpdateCinemaHallAsync(CinemaHallDBModel cinemaHall)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

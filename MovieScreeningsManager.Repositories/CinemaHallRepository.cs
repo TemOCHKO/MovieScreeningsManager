@@ -27,5 +27,10 @@ namespace MovieScreeningsManager.Repositories
         {
             return _storageContext.GetCinemaHallsAsync();
         }
+
+        public Task UpdateCinemaHallAsync(CinemaHallDBModel cinemaHall)
+        {
+            return _storageContext.UpdateCinemaHallAsync(cinemaHall);
+        }
     }
 }

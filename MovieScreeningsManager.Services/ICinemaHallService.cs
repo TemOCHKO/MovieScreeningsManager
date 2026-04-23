@@ -7,6 +7,7 @@ namespace MovieScreeningsManager.Services
         IAsyncEnumerable<CinemaHallListDTO> GetCinemaHallsAsync();
         Task<CinemaHallDetailsDTO> GetCinemaHallAsync(Guid cinemaHallid);
         Task DeleteCinemaHallAsync(Guid cinemaHallId);
-       
+        Task UpdateCinemaHallAsync(CinemaHallEditDTO cinemaHall);
+
     }
 }
