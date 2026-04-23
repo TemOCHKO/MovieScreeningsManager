@@ -13,6 +13,11 @@ namespace MovieScreeningsManager.Repositories
             _storageContext = storageContext;
         }
 
+        public Task DeleteCinemaHallAsync(Guid id)
+        {
+            return _storageContext.DeleteCinemaHallAsync(id);
+        }
+
         public Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id)
         {
             return _storageContext.GetCinemaHallAsync(id);

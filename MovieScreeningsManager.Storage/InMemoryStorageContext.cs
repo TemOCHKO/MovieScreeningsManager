@@ -84,5 +84,15 @@ namespace MovieScreeningsManager.Storage
         {
             throw new NotImplementedException();
         }
+
+        public Task DeleteCinemaHallAsync(Guid cinemaHallId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateScreeningAsync(ScreeningDBModel screening)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

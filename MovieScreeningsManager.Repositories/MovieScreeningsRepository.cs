@@ -35,5 +35,10 @@ namespace MovieScreeningsManager.Repositories
         {
             return _storageContext.DeleteScreeningAsync(screeningId);
         }
+
+        public Task UpdateScreeningAsync(ScreeningDBModel screening)
+        {
+            return _storageContext.UpdateScreeningAsync(screening);
+        }
     }
 }

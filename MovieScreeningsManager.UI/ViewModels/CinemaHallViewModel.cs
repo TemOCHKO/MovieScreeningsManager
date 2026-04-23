@@ -65,5 +65,46 @@ namespace MovieScreeningsManager.UI.ViewModels
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        private async Task EditCinemaHall(CinemaHallListDTO cinemaHall)
+        {
+            if (cinemaHall == null)
+                return;
+
+            // Example navigation to an edit page. Adjust the route to match your app.
+
+            await Shell.Current.GoToAsync($"{nameof(CinemaHallEditPage)}", new Dictionary<string, object> { { "CinemaHallId", cinemaHall.Id } });
+        }
+
+        [RelayCommand]
+        private async Task DeleteCinemaHall(CinemaHallListDTO cinemaHall)
+        {
+            if (cinemaHall == null)
+                return;
+
+            bool confirm = await Shell.Current.DisplayAlertAsync("Confirm Delete", $"Are you sure you want to delete {cinemaHall.Name}?", "Yes", "No");
+
+            if (confirm)
+            {
+                IsBusy = true;
+                try
+                {
+                    // Call your service to delete it from the database
+                    await _cinemaHallService.DeleteCinemaHallAsync(cinemaHall.Id);
+
+                    // Remove it from the UI list so it disappears immediately
+                    CinemaHalls.Remove(cinemaHall);
+                }
+                catch (Exception ex)
+                {
+                    await Shell.Current.DisplayAlertAsync("Error", $"Failed to delete: {ex.Message}", "OK");
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            }
+        }
     }
 }

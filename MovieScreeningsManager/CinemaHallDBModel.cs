@@ -1,4 +1,5 @@
 ﻿using MovieScreeningsManager.Common.Enums;
+using SQLite;
 
 namespace MovieScreeningsManager.DBModels
 {
@@ -6,6 +7,7 @@ namespace MovieScreeningsManager.DBModels
     public class CinemaHallDBModel
     {
 
+        [PrimaryKey]
         public Guid Id { get; set; }
 
         public string Name { get; set; }

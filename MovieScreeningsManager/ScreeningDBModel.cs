@@ -8,6 +8,7 @@ namespace MovieScreeningsManager.DBModels
     {
         [PrimaryKey]
         public Guid Id { get; set; }
+
         public Guid CinemaHallId { get; set; }
         public string Name { get; set; }
         public FilmGenre Genre { get; set; }

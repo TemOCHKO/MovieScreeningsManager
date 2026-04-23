@@ -33,9 +33,24 @@ namespace MovieScreeningsManager.Services
             await _movieScreeningRepository.SaveScreeningAsync(newScreening);
         }
 
-        public Task DeleteScreeningAsync(Guid screeningId)
+        public async Task DeleteScreeningAsync(Guid screeningId)
         {
-            return _movieScreeningRepository.DeleteScreeningAsync(screeningId);
+            await _movieScreeningRepository.DeleteScreeningAsync(screeningId);
+        }
+
+        public async Task<ScreeningEditDTO> GetScreeningForEditAsync(Guid id)
+        {
+            var screening = await _movieScreeningRepository.GetScreeningAsync(id);
+            return screening is null ? null : new ScreeningEditDTO(screening.Id, screening.CinemaHallId, screening.Name, screening.LaunchTime, screening.Duration, screening.Genre, screening.YearOfRelease);
+        }
+
+        public async Task UpdateScreeningAsync(ScreeningEditDTO screening)
+        {
+            var errors = screening.Validate();
+            if (errors.Count > 0)
+                throw new ValidationException(String.Join(Environment.NewLine, errors.Select(s => s.errorMessage)));
+            var newScreening = new ScreeningDBModel(screening.Id, screening.Name, screening.FilmGenre, screening.YearOfRelease, screening.LaunchTime, screening.Duration, screening.CinemaHallId);
+            await _movieScreeningRepository.UpdateScreeningAsync(newScreening);
         }
     }
 }

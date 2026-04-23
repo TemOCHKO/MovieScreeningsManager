@@ -13,6 +13,11 @@ namespace MovieScreeningsManager.Services
             _movieScreeningsRepository = movieScreeningsRepository;
         }
 
+        public Task DeleteCinemaHallAsync(Guid cinemaHallId)
+        {
+            return _cinemaHallRepository.DeleteCinemaHallAsync(cinemaHallId);
+        }
+
         public async Task<CinemaHallDetailsDTO> GetCinemaHallAsync(Guid cinemaHallid)
         {
             var cinemaHall = await _cinemaHallRepository.GetCinemaHallAsync(cinemaHallid);

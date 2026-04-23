@@ -11,6 +11,8 @@ namespace MovieScreeningsManager.Storage
         Task<int> GetScreeningsCountByCinemaHallAsync(Guid cinemaHallId);
         Task SaveScreeningAsync(ScreeningDBModel screening);
         Task DeleteScreeningAsync(Guid screeningId);
+        Task DeleteCinemaHallAsync(Guid cinemaHallId);
+        Task UpdateScreeningAsync(ScreeningDBModel screening);
 
     }
 }

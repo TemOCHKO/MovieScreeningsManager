@@ -3,12 +3,22 @@ using MovieScreeningsManager.DTOModels.Screenings;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MovieScreeningsManager.Services
 {
     public static class Validator
     {
         public record struct ValidationError(string errorMessage, string memberName);
+
+        public static List<ValidationError> Validate(this ScreeningEditDTO screeningCandidate)
+        {
+            var errors = new List<ValidationError>();
+            if (screeningCandidate.CinemaHallId == Guid.Empty)
+                errors.Add(new ValidationError("Screening must be assigned to a cinema hall.", nameof(ScreeningEditDTO.CinemaHallId)));
+            errors.AddRange(ValidateScreening(screeningCandidate.Name, screeningCandidate.FilmGenre, screeningCandidate.LaunchTime, screeningCandidate.Duration, screeningCandidate.YearOfRelease));
+            return errors;
+        }
 
         public static List<ValidationError> Validate(this ScreeningCreateDTO screeningCandidate)
         {
@@ -43,7 +53,7 @@ namespace MovieScreeningsManager.Services
             }
             if (name.Length < 2)
                 errors.Add(new ValidationError($"{displayName} must be at least 2 caracters long.", propertyName));
-            if (!name.All(char.IsLetter))
+            if (!(!string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[\p{L}\s]+$")))
                 errors.Add(new ValidationError($"{displayName} must consist only from letters.", propertyName));
             return errors;
         }

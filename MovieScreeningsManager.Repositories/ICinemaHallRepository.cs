@@ -6,5 +6,6 @@ namespace MovieScreeningsManager.Repositories
     {
         IAsyncEnumerable<CinemaHallDBModel> GetCinemaHallsAsync();
         Task<CinemaHallDBModel> GetCinemaHallAsync(Guid id);
+        Task DeleteCinemaHallAsync(Guid id);
     }
 }

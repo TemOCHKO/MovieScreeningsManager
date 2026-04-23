@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:MovieScreeningsManager.UI.View"
+             xmlns:models="clr-namespace:MovieScreeningsManager.DTOModels.Screenings;assembly=MovieScreeningsManager.DTOModels"
+             xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
+             xmlns:tools="clr-namespace:MovieScreeningsManager.UI.Tools"
+             x:Class="MovieScreeningsManager.UI.View.MovieScreeningEditPage"
+             x:DataType="vm:ScreeningEditViewModel"
+             Title="Screening Details" IsEnabled="{Binding IsNotBusy}">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="10,20" Spacing="10">
+
+                <Label Text="Title"></Label>
+                <Entry Placeholder="Title" Text="{Binding Title}"></Entry>
+
+                <Label Text="Launch Date"></Label>
+                <DatePicker Date="{Binding LaunchTime, Mode=TwoWay}"></DatePicker>
+
+                <Label Text="Time"></Label>
+                <TimePicker Time="{Binding StartTime, Mode=TwoWay}"></TimePicker>
+
+                <Label Text="Genre"></Label>
+                <Picker Title="Select Genre"
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        ItemsSource="{Binding Genres}"
+                        SelectedItem="{Binding SelectedGenre}"></Picker>
+
+                <Label Text="Duration"></Label>
+                <Entry Placeholder="Duration" Text="{Binding Duration}" Keyboard="Numeric"></Entry>
+
+                <Label Text="Year of Release"></Label>
+                <Entry Placeholder="Year of Release" Text="{Binding YearOfRelease}" Keyboard="Numeric"></Entry>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Padding="10">
+                    <Button Grid.Column="0" 
+                            Text="Save Changes"
+                            Command="{Binding UpdateScreeningCommand}"></Button>
+
+                    <Button Grid.Column="1" 
+                            Text="Back"
+                            Command="{Binding BackCommand}"></Button>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <BoxView IsVisible="{Binding IsBusy}"
+                 BackgroundColor="Gray"
+                 Opacity="0.2"
+                 InputTransparent="False"/>
+        <ActivityIndicator Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

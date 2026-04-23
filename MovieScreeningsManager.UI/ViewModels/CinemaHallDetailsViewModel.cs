@@ -45,7 +45,10 @@ namespace MovieScreeningsManager.UI.ViewModels
             try
             {
                 CurrentCinemaHall = await _cinemaHallService.GetCinemaHallAsync(_cinemaHallId) ?? throw new Exception("Cinema hall not found");
-                Screenings = new ObservableCollection<ScreeningListDTO>(await _screeningsTask);
+                var freshScreenings = await _screeningService.GetScreeningsByCinemaHallAsync(_cinemaHallId);
+
+                // 3. Update the UI collection
+                Screenings = new ObservableCollection<ScreeningListDTO>(freshScreenings);
             }
             catch (Exception ex)
             {
@@ -109,6 +112,24 @@ namespace MovieScreeningsManager.UI.ViewModels
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to screening details: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task EditScreening(ScreeningListDTO screening)
+        {
+            IsBusy = true;
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(MovieScreeningEditPage)}", new Dictionary<string, object> { { nameof(ScreeningDetailsDTO.Id), screening.Id } });
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to screening edit page: {ex.Message}", "OK");
             }
             finally
             {

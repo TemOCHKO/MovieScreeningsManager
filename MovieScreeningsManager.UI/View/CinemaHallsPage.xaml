@@ -14,29 +14,37 @@
             SelectedItem="{Binding SelectedCinemaHall}"
             SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="models:CinemaHallListDTO">
-                    <Border
-                        Stroke="DimGrey"
-                        Padding="2"
-                        Margin="10, 10">
-                        <VerticalStackLayout>
-                            <Label
-                                Style="{StaticResource SubHeadline}"
-                                Text="{Binding Name}">
+                <DataTemplate x:DataType="models:CinemaHallListDTO">
+                    <SwipeView>
 
-                            </Label>
-                            <Label Text="{Binding Capacity}"
-                                   FontSize="15"
-                                   HorizontalOptions="Center">
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit" 
+                           BackgroundColor="Blue"
+                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=EditCinemaHallCommand}"
+                           CommandParameter="{Binding .}" />
 
-                            </Label>
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label Text="Number of screenings: "/>
-                                <Label Text="{Binding MovieScreeningsCount}"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Border>
+                                <SwipeItem Text="Delete" 
+                           BackgroundColor="Red"
+                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CinemaHallViewModel}}, Path=DeleteCinemaHallCommand}"
+                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Stroke="DimGrey"
+                Padding="2"
+                Margin="10, 10">
+                            <VerticalStackLayout>
+                                <Label Style="{StaticResource SubHeadline}" Text="{Binding Name}"/>
+                                <Label Text="{Binding Capacity}" FontSize="15" HorizontalOptions="Center"/>
+                                <HorizontalStackLayout HorizontalOptions="Center">
+                                    <Label Text="Number of screenings: "/>
+                                    <Label Text="{Binding MovieScreeningsCount}"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
