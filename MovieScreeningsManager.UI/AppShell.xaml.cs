@@ -13,6 +13,7 @@ namespace MovieScreeningsManager.UI
             Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallDetailsPage)}/{nameof(MovieScreeningCreatePage)}", typeof(MovieScreeningCreatePage));
             Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallEditPage)}", typeof(CinemaHallEditPage));
             Routing.RegisterRoute($"{nameof(CinemaHallsPage)}/{nameof(CinemaHallDetailsPage)}/{nameof(MovieScreeningEditPage)}", typeof(MovieScreeningEditPage));
+            Routing.RegisterRoute(nameof(CinemaHallCreatePage), typeof(CinemaHallCreatePage));
         }
     }
 }

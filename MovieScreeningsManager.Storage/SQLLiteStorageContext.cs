@@ -116,5 +116,10 @@ namespace MovieScreeningsManager.Storage
         {
             await _databaseConnection.UpdateAsync(cinemaHall);
         }
+
+        public async Task CreateCinemaHallAsync(CinemaHallDBModel cinemaHall)
+        {
+            await _databaseConnection.InsertAsync(cinemaHall);
+        }
     }
 }

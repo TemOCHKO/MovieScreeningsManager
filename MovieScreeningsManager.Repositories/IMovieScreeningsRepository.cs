@@ -10,5 +10,6 @@ namespace MovieScreeningsManager.Repositories
         Task SaveScreeningAsync(ScreeningDBModel screening);
         Task DeleteScreeningAsync(Guid screeningId);
         Task UpdateScreeningAsync(ScreeningDBModel screening);
+      
     }
 }

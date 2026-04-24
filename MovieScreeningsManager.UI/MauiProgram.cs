@@ -36,6 +36,7 @@ namespace MovieScreeningsManager.UI
             builder.Services.AddTransient<CinemaHallEditPage>();
             builder.Services.AddTransient<MovieScreeningEditPage>();
             builder.Services.AddTransient<CinemaHallEditPage>();
+            builder.Services.AddTransient<CinemaHallCreatePage>();
 
             builder.Services.AddTransient<CinemaHallViewModel>();
             builder.Services.AddTransient<CinemaHallDetailsViewModel>();
@@ -43,6 +44,8 @@ namespace MovieScreeningsManager.UI
             builder.Services.AddTransient<ScreeningCreateViewModel>();
             builder.Services.AddTransient<ScreeningEditViewModel>();
             builder.Services.AddTransient<CinemaHallEditViewModel>();
+            builder.Services.AddTransient<CinemaHallCreateViewModel>();
+        
 
 
 

@@ -7,12 +7,13 @@
              x:Class="MovieScreeningsManager.UI.View.CinemaHallsPage"
              x:DataType="vm:CinemaHallViewModel"
              Title="Cinema Halls Page" IsEnabled="{Binding IsNotBusy}">
-    <Grid>
+    <Grid RowDefinitions="*, Auto">
         <CollectionView
-            ItemsSource="{Binding CinemaHalls}"
-            SelectionMode="Single"
-            SelectedItem="{Binding SelectedCinemaHall}"
-            SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
+            Grid.Row="0"
+        ItemsSource="{Binding CinemaHalls}"
+        SelectionMode="Single"
+        SelectedItem="{Binding SelectedCinemaHall}"
+        SelectionChangedCommand="{Binding LoadCinemaHallCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:CinemaHallListDTO">
                     <SwipeView>
@@ -48,11 +49,23 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-        <BoxView IsVisible="{Binding IsBusy}"
-                 BackgroundColor="Gray"
-                 Opacity="0.3"
-                 InputTransparent="False"/>
+        <Button
+            Grid.Row="1"
+            Command="{Binding AddCinemaHallCommand}"
+            Text="Create new Cinema Hall"
+            Margin="0"
+            HorizontalOptions="Center"/>
+        <BoxView 
+             Grid.Row="0"
+            Grid.RowSpan="2"
+             IsVisible="{Binding IsBusy}"
+             BackgroundColor="Gray"
+             Opacity="0.3"
+             InputTransparent="False"
+             />
         <ActivityIndicator
+            Grid.Row="0"
+            Grid.RowSpan="2"
             Color="AliceBlue"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"

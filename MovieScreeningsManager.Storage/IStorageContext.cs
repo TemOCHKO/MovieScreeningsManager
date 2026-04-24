@@ -14,6 +14,7 @@ namespace MovieScreeningsManager.Storage
         Task DeleteCinemaHallAsync(Guid cinemaHallId);
         Task UpdateScreeningAsync(ScreeningDBModel screening);
         Task UpdateCinemaHallAsync(CinemaHallDBModel cinemaHall);
+        Task CreateCinemaHallAsync(CinemaHallDBModel cinemaHall);
 
     }
 }

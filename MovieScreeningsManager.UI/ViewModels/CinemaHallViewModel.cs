@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MovieScreeningsManager.DTOModels.CinemaHalls;
+using MovieScreeningsManager.DTOModels.Screenings;
 using MovieScreeningsManager.Services;
 using MovieScreeningsManager.UI.View;
 using System.Collections.ObjectModel;
@@ -104,6 +105,24 @@ namespace MovieScreeningsManager.UI.ViewModels
                 {
                     IsBusy = false;
                 }
+            }
+        }
+
+        [RelayCommand]
+        private async Task AddCinemaHall()
+        {
+            IsBusy = true;
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(CinemaHallCreatePage)}");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to navigate to cinema hall create page: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

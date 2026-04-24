@@ -15,6 +15,18 @@ namespace MovieScreeningsManager.Services
             _movieScreeningsRepository = movieScreeningsRepository;
         }
 
+        public async Task CreateCinemaHallAsync(CinemaHallCreateDTO cinemaHall)
+        {
+            await _cinemaHallRepository.CreateCinemaHallAsync(new CinemaHallDBModel
+            {
+                Id = cinemaHall.Id,
+                Name = cinemaHall.Name,
+                Capacity = cinemaHall.Capacity,
+                Type = cinemaHall.Type,
+                RowCount = cinemaHall.RowCount
+            });
+        }
+
         public Task DeleteCinemaHallAsync(Guid cinemaHallId)
         {
             return _cinemaHallRepository.DeleteCinemaHallAsync(cinemaHallId);

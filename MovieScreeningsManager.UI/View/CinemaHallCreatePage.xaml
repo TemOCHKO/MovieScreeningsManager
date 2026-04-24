@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MovieScreeningsManager.UI.ViewModels"
-             x:Class="MovieScreeningsManager.UI.View.CinemaHallEditPage"
-             x:DataType="vm:CinemaHallEditViewModel"
-             Title="Edit Cinema Hall" IsEnabled="{Binding IsNotBusy}">
+             x:Class="MovieScreeningsManager.UI.View.CinemaHallCreatePage"
+             x:DataType="vm:CinemaHallCreateViewModel"
+             Title="Add Cinema Hall" IsEnabled="{Binding IsNotBusy}">
     <Grid>
         <ScrollView>
             <VerticalStackLayout Padding="10,20" Spacing="10">
@@ -16,8 +16,7 @@
                 <Entry Placeholder="Total Seats" Text="{Binding Capacity}" Keyboard="Numeric"></Entry>
 
                 <Label Text="Row Count"></Label>
-                <Entry Placeholder="Number of Rows" Text="{Binding RowCount}" Keyboard="Numeric">
-                </Entry>
+                <Entry Placeholder="Number of Rows" Text="{Binding RowCount}" Keyboard="Numeric"></Entry>
 
                 <Label Text="Hall Type"></Label>
                 <Picker Title="Select Type"
@@ -27,27 +26,24 @@
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Padding="10, 20, 10, 10">
                     <Button Grid.Column="0" 
-                            Text="Save Changes"
-                            Command="{Binding UpdateCinemaHallCommand}"></Button>
+                            Text="Create Hall"
+                            Command="{Binding SaveCinemaHallCommand}"></Button>
 
                     <Button Grid.Column="1" 
-                            Text="Back"
+                            Text="Cancel"
                             Command="{Binding BackCommand}"></Button>
                 </Grid>
 
             </VerticalStackLayout>
         </ScrollView>
+
         <BoxView IsVisible="{Binding IsBusy}"
-                 BackgroundColor="Gray"
-                 Opacity="0.3"
-                 InputTransparent="False"
-                 Grid.RowSpan="3"/>
-        <ActivityIndicator
-            Color="AliceBlue"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Grid.RowSpan="3"/>
+                 BackgroundColor="Gray" Opacity="0.2" 
+                 InputTransparent="False"/>
+        <ActivityIndicator Color="Magenta"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
     </Grid>
 </ContentPage>

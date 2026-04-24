@@ -8,6 +8,7 @@ namespace MovieScreeningsManager.Services
         Task<CinemaHallDetailsDTO> GetCinemaHallAsync(Guid cinemaHallid);
         Task DeleteCinemaHallAsync(Guid cinemaHallId);
         Task UpdateCinemaHallAsync(CinemaHallEditDTO cinemaHall);
+        Task CreateCinemaHallAsync(CinemaHallCreateDTO cinemaHall);
 
     }
 }
