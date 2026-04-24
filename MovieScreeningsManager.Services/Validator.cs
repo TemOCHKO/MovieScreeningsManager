@@ -12,6 +12,13 @@ namespace MovieScreeningsManager.Services
     {
         public record struct ValidationError(string errorMessage, string memberName);
 
+        public static List<ValidationError> Validate(this CinemaHallCreateDTO cinemaHallCandidate)
+        {
+            var errors = new List<ValidationError>();
+            errors.AddRange(ValidateCinemaHall(cinemaHallCandidate.Name, cinemaHallCandidate.Capacity, cinemaHallCandidate.RowCount, cinemaHallCandidate.Type));
+            return errors;
+        }
+
         public static List<ValidationError> Validate(this CinemaHallEditDTO cinemaHallCandidate)
         {
             var errors = new List<ValidationError>();
