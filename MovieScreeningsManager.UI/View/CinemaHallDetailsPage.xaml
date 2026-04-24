@@ -15,27 +15,39 @@
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto, *, Auto">
 
-        <VerticalStackLayout
-            Grid.Row="0">
-            <Label
-                Style="{StaticResource SubHeadline}"
-                Text="{Binding CurrentCinemaHall.Name}"/>
+        <VerticalStackLayout Grid.Row="0">
+            <Label Style="{StaticResource SubHeadline}"
+                   Text="{Binding CurrentCinemaHall.Name}"/>
 
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Capacity: "/>
                 <Label Text="{Binding CurrentCinemaHall.Capacity}"/>
             </HorizontalStackLayout>
 
-            <Label
-                Style="{StaticResource SubHeadline}"
-                Text="{Binding CurrentCinemaHall.Type, Converter={StaticResource EnumToDisplayName}}"/>
+            <Label Style="{StaticResource SubHeadline}"
+                   Text="{Binding CurrentCinemaHall.Type, Converter={StaticResource EnumToDisplayName}}"/>
 
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Row Count: "/>
                 <Label Text="{Binding CurrentCinemaHall.RowsCount}"/>
             </HorizontalStackLayout>
 
+            <Border>
+                <HorizontalStackLayout>
+                    <Label Text="Sort By: " 
+                           VerticalOptions="Center" 
+                           Margin="5,0,10,0" 
+                           FontAttributes="Bold"/>
+
+                    <Picker Title="Select sorting..."
+                            ItemDisplayBinding="{Binding DisplayName}"
+                            ItemsSource="{Binding SortOptions}"
+                            SelectedItem="{Binding SelectedSortOption}"
+                            HorizontalOptions="FillAndExpand" />
+                </HorizontalStackLayout>
+            </Border>
         </VerticalStackLayout>
+
         <RefreshView
             Command="{Binding RefreshDataCommand}"
              Grid.Row="1">

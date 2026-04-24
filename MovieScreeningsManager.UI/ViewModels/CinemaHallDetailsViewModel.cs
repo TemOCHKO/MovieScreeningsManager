@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MovieScreeningsManager.Common;
+using MovieScreeningsManager.Common.Enums;
 using MovieScreeningsManager.DTOModels.CinemaHalls;
 using MovieScreeningsManager.DTOModels.Screenings;
 using MovieScreeningsManager.Services;
@@ -23,6 +25,11 @@ namespace MovieScreeningsManager.UI.ViewModels
         private CinemaHallDetailsDTO _currentCinemaHall;
         [ObservableProperty]
         private ObservableCollection<ScreeningListDTO> _screenings;
+
+        public EnumWithName<ScreeningSortOption>[] SortOptions { get; } = EnumExtensions.GetValuesWithNames<ScreeningSortOption>();
+
+        [ObservableProperty]
+        private EnumWithName<ScreeningSortOption> _selectedSortOption;
 
         public CinemaHallDetailsViewModel(ICinemaHallService cinemaHallService, IScreeningService screeningService)
         {
@@ -135,6 +142,30 @@ namespace MovieScreeningsManager.UI.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+
+        partial void OnSelectedSortOptionChanged(EnumWithName<ScreeningSortOption> value)
+        {
+            ApplySort();
+        }
+
+        private void ApplySort()
+        {
+            if (Screenings == null || !Screenings.Any() || SelectedSortOption == null)
+                return;
+
+            IEnumerable<ScreeningListDTO> sortedList = SelectedSortOption.Value switch
+            {
+                ScreeningSortOption.DateAscending => Screenings.OrderBy(s => s.LaunchTime),
+                ScreeningSortOption.DateDescending => Screenings.OrderByDescending(s => s.LaunchTime),
+                ScreeningSortOption.TitleAscending => Screenings.OrderBy(s => s.Name),
+                ScreeningSortOption.TitleDescending => Screenings.OrderByDescending(s => s.Name),
+                ScreeningSortOption.Duration => Screenings.OrderBy(s => s.Duration),
+                _ => Screenings.OrderBy(s => s.LaunchTime)
+            };
+
+            Screenings = new ObservableCollection<ScreeningListDTO>(sortedList);
         }
 
     }
