@@ -52,7 +52,6 @@ namespace MovieScreeningsManager.UI.ViewModels
             }
         }
 
-        // 2. Fetch the data asynchronously (Called from the Page's OnAppearing)
         public async Task LoadScreeningAsync()
         {
             if (_screeningId == Guid.Empty) return;
@@ -60,7 +59,6 @@ namespace MovieScreeningsManager.UI.ViewModels
             IsBusy = true;
             try
             {
-                // Fetch the existing record from your database/service
                 var screening = await _screeningService.GetScreeningForEditAsync(_screeningId);
 
                 if (screening != null)
@@ -70,11 +68,9 @@ namespace MovieScreeningsManager.UI.ViewModels
                     Duration = screening.Duration;
                     YearOfRelease = screening.YearOfRelease;
 
-                    // Re-split the datetime into Date and Time for the UI pickers
                     LaunchTime = screening.LaunchTime.Date;
                     StartTime = screening.LaunchTime.TimeOfDay;
 
-                    // Match the enum to set the picker selection
                     SelectedGenre = Genres.FirstOrDefault(g => g.Value == screening.FilmGenre);
                 }
             }
@@ -99,7 +95,6 @@ namespace MovieScreeningsManager.UI.ViewModels
                     ? LaunchTime.Value.Date + StartTime.Value
                     : DateTime.Now;
 
-                // Assuming you have an Update DTO. Adjust the class name as needed.
                 var updatedScreening = new ScreeningEditDTO(
                     _screeningId,
                     _cinemaHallId,

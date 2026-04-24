@@ -17,7 +17,6 @@ namespace MovieScreeningsManager.UI.ViewModels
         private Guid _cinemaHallId;
         private readonly ICinemaHallService _cinemaHallService;
 
-        // Assuming you have an enum called CinemaHallType
         public EnumWithName<CinemaHallType>[] HallTypes { get; }
 
         [ObservableProperty]
@@ -36,13 +35,11 @@ namespace MovieScreeningsManager.UI.ViewModels
         {
             _cinemaHallService = cinemaHallService;
 
-            // Populate the picker options using your existing extension method
             HallTypes = EnumExtensions.GetValuesWithNames<CinemaHallType>();
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            // Make sure the key matches what you send from the list page!
             if (query.ContainsKey("CinemaHallId"))
             {
                 _cinemaHallId = (Guid)query["CinemaHallId"];
@@ -56,7 +53,6 @@ namespace MovieScreeningsManager.UI.ViewModels
             IsBusy = true;
             try
             {
-                // Assuming GetCinemaHallAsync returns your details DTO
                 var cinemaHall = await _cinemaHallService.GetCinemaHallAsync(_cinemaHallId);
 
                 if (cinemaHall != null)
@@ -65,13 +61,12 @@ namespace MovieScreeningsManager.UI.ViewModels
                     Capacity = cinemaHall.Capacity;
                     RowCount = cinemaHall.RowsCount;
 
-                    // Match the enum to set the picker selection
                     SelectedType = HallTypes.FirstOrDefault(t => t.Value == cinemaHall.Type);
                 }
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error", $"Failed to load cinema hall: {ex.Message}", "OK");
+                await Shell.Current.DisplayAlertAsync("Error", $"Failed to load cinema hall: {ex.Message}", "OK");
             }
             finally
             {
@@ -85,7 +80,6 @@ namespace MovieScreeningsManager.UI.ViewModels
             IsBusy = true;
             try
             {
-                // Create your update DTO. Adjust the class name if yours is different.
                 var updatedHall = new CinemaHallEditDTO(
                     _cinemaHallId,
                     Name,
@@ -93,7 +87,6 @@ namespace MovieScreeningsManager.UI.ViewModels
                     SelectedType.Value,
                     RowCount);
 
-                // Call your SQLite service to update
                 await _cinemaHallService.UpdateCinemaHallAsync(updatedHall);
 
                 await Shell.Current.GoToAsync("..");

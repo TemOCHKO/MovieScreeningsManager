@@ -32,7 +32,7 @@ namespace MovieScreeningsManager.UI.ViewModels
         {
             _cinemaHallService = cinemaHallService;
             HallTypes = EnumExtensions.GetValuesWithNames<CinemaHallType>();
-            SelectedType = HallTypes.FirstOrDefault(); // Set a default selection
+            SelectedType = HallTypes.FirstOrDefault(); 
         }
 
         [RelayCommand]
@@ -42,14 +42,12 @@ namespace MovieScreeningsManager.UI.ViewModels
             IsBusy = true;
             try
             {
-                // Create your new DTO (adjust class name if yours is slightly different)
                 var newHall = new CinemaHallCreateDTO(
                     Name,
                     Capacity,
                     SelectedType.Value,
                     RowCount);
 
-                // Save to SQLite
                 await _cinemaHallService.CreateCinemaHallAsync(newHall);
 
                 // Go back to the list
